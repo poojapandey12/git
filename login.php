@@ -1,6 +1,7 @@
 <?php
 include 'registration_database_conn.php'; 
 /*session start*/
+/*second comment */
 session_start();
 error_reporting(E_ALL | E_STRICT);  
 ini_set('display_startup_errors',1);  
