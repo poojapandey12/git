@@ -1,9 +1,17 @@
 <!DOCTYPE HTML>
-<html>  
+<html> 
+<head>
+  
+  <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+  
+</head> 
 <body>
 <?php
 //include 'registration_database_save.php';
 include 'registration_database_conn.php';
+include 'mail.php';
 
 
 
@@ -115,9 +123,9 @@ if (isset($_POST['reg_user']))
 if(isset($_POST["reg_user"])) {
       $check = getimagesize($_FILES["file"]["tmp_name"]);
       if($check !== false) {
-          echo "File is an image - " . $check["mime"] . ".";
+          //echo "File is an image - " . $check["mime"] . ".";
           move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
-          echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
+          //echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
           $uploadOk = 1;
       } 
       else {
@@ -143,7 +151,9 @@ if(isset($_POST["reg_user"])) {
         
 
     if ($conn->query($sql) === TRUE) {
-      echo "You are successfully registered";
+      send_email($name,$age, $email, $phone);
+      echo "message sent";
+     // echo "You are successfully registered";
       //header('location: success.php');
     }     
     else {
@@ -196,7 +206,10 @@ Confirm_Password: <input type="password" name="c_pass"><br>
   <br><br>
 File_Upload: <input type="file" name="file" id="fileToUpload">
 <br><br>
-<input type="submit" value="Upload Image"  name="reg_user">
+<div class="g-recaptcha" data-sitekey="6LcuQKMUAAAAAN_kgbCW0whplyJ-3lXJKlHvzJqy"></div>
+<!-- <div class="g-recaptcha" data-sitekey="Your_reCAPTCHA_Site_Key"></div> -->
+
+<input type="submit" value="submit"  name="reg_user">
 </form>
 
 
